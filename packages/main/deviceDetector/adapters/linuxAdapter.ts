@@ -1,7 +1,6 @@
 import { Singleton } from '@common/function/singletonDecorator'
 import { $ } from '@main/utils/shell'
 import type { Device, Emulator, EmulatorAdapter } from '@type/device'
-import psList from 'ps-list'
 
 import { defaultAdbPath, getDeviceUuid, parseAdbDevice } from '../utils'
 
@@ -28,6 +27,7 @@ class LinuxEmulator implements EmulatorAdapter {
 
   async getEmulators(): Promise<Emulator[]> {
     const emulator: Emulator[] = []
+    const { default: psList } = await import('ps-list')
     const processes = await psList()
     processes.forEach(process => console.log(process))
     return emulator
